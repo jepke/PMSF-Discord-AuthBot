@@ -28,7 +28,7 @@ bot.on('ready', () => {
     }
 
     SQLConnect().then(result => {
-        sqlConnection.query("UPDATE users SET access_level=0", function(err, result) {
+        sqlConnection.query("UPDATE users SET access_level=0 WHERE login_system = 'discord'", function(err, result) {
             if(err)
             {            
                 console.log(err.stack);
@@ -220,7 +220,7 @@ bot.on('guildMemberUpdate', (oldMember, newMember) => {
 ontime({
     cycle: ['00:00:00']
 }, function (ot) {
-    sqlConnection.query("UPDATE users SET access_level=0", function(err, result) {
+    sqlConnection.query("UPDATE users SET access_level=0 WHERE login_system = 'discord'", function(err, result) {
         if(err)
         {            
             console.log(err.stack);
