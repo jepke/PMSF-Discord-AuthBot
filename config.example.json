@@ -1,5 +1,6 @@
 {
     "token":"insertBotToken",
+    "timer":"3600000",
     
     "host":"localhost",
     "username":"user",
