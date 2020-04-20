@@ -7,7 +7,7 @@ This piece of work is only intended to work with https://github.com/whitewillem/
 ## Getting Started
 
 ```
-npm install discord.js
+npm install discord.js@11.6.2
 npm install mysql
 
 Create the users table with the SQL files in PMSF.
