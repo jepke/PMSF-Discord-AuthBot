@@ -115,13 +115,17 @@ function ApproveUser(userID, accessLevel, name)
     var sqlStatement;
     if(accessLevel > 0)
     {
-        sqlStatement = "INSERT INTO users (id,user,access_level,expire_timestamp,login_system) VALUES ("+userID+",\""+name+"\","+accessLevel+",1,'discord') ON DUPLICATE KEY UPDATE user=VALUES(user),access_level=VALUES(access_level),login_system=VALUES(login_system);";
+        sqlStatement = "INSERT INTO users (id, user, access_level, expire_timestamp, login_system) VALUES (?, ?, ?, 1, 'discord') ON DUPLICATE KEY UPDATE user = VALUES(user), access_level = VALUES(access_level), login_system = VALUES(login_system);";
     }
     else
     {
-        sqlStatement = "INSERT INTO users (id,user,access_level,expire_timestamp,login_system,session_id) VALUES ("+userID+",\""+name+"\","+accessLevel+",1,'discord',NULL) ON DUPLICATE KEY UPDATE user=VALUES(user),access_level=VALUES(access_level),login_system=VALUES(login_system),expire_timestamp=VALUES(expire_timestamp),session_id=VALUES(session_id);";
+        sqlStatement = "INSERT INTO users (id, user, access_level, expire_timestamp, login_system, session_id) VALUES (?, ?, ?, 1, 'discord', NULL) ON DUPLICATE KEY UPDATE user = VALUES(user), access_level = VALUES(access_level), login_system = VALUES(login_system), expire_timestamp = VALUES(expire_timestamp), session_id = VALUES(session_id);";
     }
-    sqlConnection.query(sqlStatement, function(err, result) {
+    sqlConnection.query(sqlStatement, [
+        userID,
+        name,
+        accessLevel
+    ], function(err, result) {
         if(err)
         {
             if(err.code==="PROTOCOL_CONNECTION_LOST" || err.code==="PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR")
